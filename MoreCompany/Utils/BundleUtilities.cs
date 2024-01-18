@@ -1,3 +1,4 @@
+using BepInEx.Logging;
 using System;
 using System.IO;
 using System.Reflection;
@@ -13,6 +14,7 @@ namespace MoreCompany.Utils
             {
                 if (resource.Contains(filename))
                 {
+                    MainClass.StaticLogger.LogInfo("Loading resource" + resource);
                     using (Stream resFilestream = assembly.GetManifestResourceStream(resource))
                     {
                         if (resFilestream == null) return null;
@@ -27,6 +29,7 @@ namespace MoreCompany.Utils
 
         public static AssetBundle LoadBundleFromInternalAssembly(string filename, Assembly assembly)
         {
+            MainClass.StaticLogger.LogInfo("in LoadBundleFromInternalAssembly: " + filename);
             AssetBundle bundle = AssetBundle.LoadFromMemory(GetResourceBytes(filename, assembly));
             return bundle;
         }

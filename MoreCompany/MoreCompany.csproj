@@ -468,8 +468,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\morecompany.cosmetics" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\jointcompany.assets" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "D:\SteamLibrary\steamapps\common\Lethal Company\BepInEx\plugins\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

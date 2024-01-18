@@ -85,6 +85,7 @@ namespace MoreCompany
             StaticLogger.LogInfo("Read settings and cosmetics");
 
             AssetBundle bundle = BundleUtilities.LoadBundleFromInternalAssembly("morecompany.assets", Assembly.GetExecutingAssembly());
+            AssetBundle bundleJoint = BundleUtilities.LoadBundleFromInternalAssembly("jointcompany.assets", Assembly.GetExecutingAssembly());
             AssetBundle cosmeticsBundle = BundleUtilities.LoadBundleFromInternalAssembly("morecompany.cosmetics", Assembly.GetExecutingAssembly());
             CosmeticRegistry.LoadCosmeticsFromBundle(cosmeticsBundle);
             cosmeticsBundle.Unload(false);
@@ -103,7 +104,14 @@ namespace MoreCompany
             RecursiveCosmeticLoad(Paths.PluginPath);
 
             LoadAssets(bundle);
+            foreach (var name in bundleJoint.GetAllAssetNames())
+            {
+                StaticLogger.LogInfo("Asset: " + name);
+            }
             
+            LoadJointAssets(bundleJoint);
+            StaticLogger.LogInfo("Loaded Joint Company sprite PLEASE WORK GOD");
+
             StaticLogger.LogInfo("Loaded MoreCompany FULLY");
         }
 
@@ -178,12 +186,21 @@ namespace MoreCompany
         {
             if (bundle)
             {
-                mainLogo = bundle.LoadPersistentAsset<Texture2D>("assets/morecompanyassets/morecompanytransparentred.png");
+                //mainLogo = bundle.LoadPersistentAsset<Texture2D>("assets/morecompanyassets/morecompanytransparentred.png");
                 quickMenuScrollParent = bundle.LoadPersistentAsset<GameObject>("assets/morecompanyassets/quickmenuoverride.prefab");
                 playerEntry = bundle.LoadPersistentAsset<GameObject>("assets/morecompanyassets/playerlistslot.prefab");
                 cosmeticGUIInstance = bundle.LoadPersistentAsset<GameObject>("assets/morecompanyassets/testoverlay.prefab");
                 cosmeticButton = bundle.LoadPersistentAsset<GameObject>("assets/morecompanyassets/cosmeticinstance.prefab");
                 crewCountUI = bundle.LoadPersistentAsset<GameObject>("assets/morecompanyassets/crewcountfield.prefab");
+                bundle.Unload(false);
+            }
+        }
+
+        private static void LoadJointAssets(AssetBundle bundle)
+        {
+            if (bundle)
+            {
+                mainLogo = bundle.LoadPersistentAsset<Texture2D>("assets/jointlogo.png");
                 bundle.Unload(false);
             }
         }
